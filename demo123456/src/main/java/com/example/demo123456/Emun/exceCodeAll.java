@@ -72,7 +72,7 @@ public enum exceCodeAll implements codeMessage {
 
     @Override
     public Integer code() {
-        return code;
+        return  code;
     }
 
     @Override
