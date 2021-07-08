@@ -36,7 +36,7 @@ public enum exceCodeAll implements codeMessage {
 
     LOGIN_HAS_EXPIRED(400, "登陆已过期"),
     PARAMS_VALID_ERR(400, "参数验证错误"),
-    UPLOAD_FAULT(126018, "文件上传失败"),
+    UPLOAD_FAULT(126018, "文件上传失败" ),
     DEL_DATA_FAULT(126019, "记录删除失败"),
     UP_DATA_FAULT(126020, "记录修改失败"),
     MOVE_FAULT(126021, "文件移动失败"),
