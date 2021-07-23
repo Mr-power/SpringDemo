@@ -1,6 +1,5 @@
 package com.zd.sercurlending.jwt.resolver;
 
-
 import com.zd.sercurlending.bean.UserInfo;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;

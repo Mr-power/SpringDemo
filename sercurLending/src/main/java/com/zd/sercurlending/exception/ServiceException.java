@@ -2,7 +2,7 @@ package com.zd.sercurlending.exception;
 
 import com.zd.sercurlending.bean.EnumDescribable;
 
-public class ServiceException {
+public class ServiceException extends Throwable {
 
     private EnumDescribable describable;
     public ServiceException() {

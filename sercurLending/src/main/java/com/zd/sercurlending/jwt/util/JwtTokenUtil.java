@@ -1,7 +1,7 @@
 package com.zd.sercurlending.jwt.util;
 
 
-import com.zd.sercurlending.bean.UserInfo;
+import com.da.ipo_server.model.UserInfoVo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;
@@ -10,12 +10,12 @@ import io.jsonwebtoken.impl.DefaultClock;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
 
 /**
  * @description: TODO
@@ -36,6 +36,8 @@ public class JwtTokenUtil implements Serializable {
     @Value("${jwt.header}")
     private String header ;
 
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader ;
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
@@ -75,11 +77,11 @@ public class JwtTokenUtil implements Serializable {
         return false;
     }
 
-   //public String generateToken(UserInfo loginInfo) {
-   //    Map<String, Object> claims = new HashMap<>();
-   //    claims.put("loginInfo",loginInfo);
-   //    return doGenerateToken(claims, loginInfo.getClientNo());
-   //}
+    public String generateToken(UserInfoVo loginInfo) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("loginInfo",loginInfo);
+        return doGenerateToken(claims, loginInfo.getClientNo());
+    }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         final Date createdDate = clock.now();
@@ -123,5 +125,8 @@ public class JwtTokenUtil implements Serializable {
         return header;
     }
 
+    public String getTokenHeader() {
+        return tokenHeader;
+    }
 }
 

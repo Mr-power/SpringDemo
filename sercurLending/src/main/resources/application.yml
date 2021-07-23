@@ -19,6 +19,7 @@ spring:
     expiration: 86400
 jwt:
   header: Authorization
+  tokenHeader: ZHIDA
   secret: mySecret
   # token 过期时间 6个小时
   expiration: 21000000
