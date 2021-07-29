@@ -2,17 +2,17 @@ package com.zd.sercurlending.jwt.filter;
 
 
 import com.alibaba.fastjson.JSON;
-import com.da.ipo_server.bean.CommonConst;
-import com.da.ipo_server.exception.ServiceException;
-import com.da.ipo_server.jwt.annotation.Token;
-import com.da.ipo_server.jwt.util.JwtTokenUtil;
-import com.da.ipo_server.model.UserInfoVo;
+import com.zd.sercurlending.bean.CommonConst;
+import com.zd.sercurlending.bean.LoginInfo;
+import com.zd.sercurlending.exception.ServiceException;
+import com.zd.sercurlending.jwt.annotation.Token;
+import com.zd.sercurlending.jwt.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,6 +35,7 @@ public class JwtAuthorizationTokenInterceptor extends HandlerInterceptorAdapter 
 
     }
 
+    @SneakyThrows
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (handler instanceof HandlerMethod && verificationJwt((HandlerMethod) handler)){
@@ -46,11 +47,11 @@ public class JwtAuthorizationTokenInterceptor extends HandlerInterceptorAdapter 
                 return true;
             }
             String authToken;
-            UserInfoVo jwtUser;
+            LoginInfo jwtUser;
             if (requestHeader != null && requestHeader.startsWith(tokenHeader)) {
                 authToken = requestHeader.substring(tokenHeader.length() + 1);
                 try {
-                    jwtUser = JSON.parseObject(JSON.toJSONString(jwtTokenUtil.getAllClaimsFromToken(authToken).get("loginInfo")), UserInfoVo.class);
+                    jwtUser = JSON.parseObject(JSON.toJSONString(jwtTokenUtil.getAllClaimsFromToken(authToken).get("loginInfo")), LoginInfo.class);
                 } catch (Exception e) {
                     if (e instanceof ExpiredJwtException){
                         throw new ServiceException(CommonConst.LOGIN_HAS_EXPIRED);

@@ -1,17 +1,13 @@
-package com.zd.sercurlending;
-
+package com.test.demotest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
-
-
 @SpringBootApplication
-public class SercurLendingApplication {
+public class DemoTestApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SercurLendingApplication.class, args);
+        SpringApplication.run(DemoTestApplication.class, args);
     }
 
 }

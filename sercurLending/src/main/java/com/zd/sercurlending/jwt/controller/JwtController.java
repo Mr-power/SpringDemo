@@ -2,8 +2,11 @@ package com.zd.sercurlending.jwt.controller;
 
 
 import com.zd.sercurlending.bean.CommonConst;
+import com.zd.sercurlending.bean.UserInfo;
 import com.zd.sercurlending.exception.ServiceException;
 import com.zd.sercurlending.jwt.annotation.Token;
+import com.zd.sercurlending.service.ProfitService;
+import com.zd.sercurlending.service.ProfitServiceImp;
 import com.zd.sercurlending.util.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
 import com.zd.sercurlending.bean.LoginInfo;
@@ -38,8 +41,12 @@ public class JwtController {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private ProfitServiceImp profitServiceImp;
 
 
     @ApiOperation(value = "根据用户名秘密获取token", notes = "获取token,此接口无需在header中添加token参数")
@@ -58,8 +65,8 @@ public class JwtController {
             }
             /**
              **/
-            //final UserInfo userInfoVo = serviceIPO.getUserInfoByClientNo(loginInfo.getClientNo());
-            String pwdInBase=null; //ipoService.getClientPassword(loginInfo.getClientNo());
+            UserInfo userInfoVo = profitServiceImp.getUserInfoByClientNo(loginInfo.getClientNo());
+            String pwdInBase=userInfoVo.getFpassword();
             String pwdEnCode = "";
             try {
                 pwdEnCode = loginInfo.getPwd();
@@ -67,7 +74,7 @@ public class JwtController {
                 log.error("密码加密异常:{}", e.getMessage());
             }
             if (pwdEnCode.equals(pwdInBase)) {
-                return ResultUtil.success("登陆成功", jwtTokenUtil.generateToken(userInfoVo));
+                return ResultUtil.success("登陆成功", jwtTokenUtil.generateToken(loginInfo));
             } else {
                 integer++;
                 redisTemplate.opsForValue().set(clientNo, integer, 3600, TimeUnit.SECONDS);

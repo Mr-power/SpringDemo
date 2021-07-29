@@ -4,5 +4,9 @@ import lombok.Data;
 
 @Data
 public class UserInfo {
-    private String clientNo;
+    private String Fclient_no;
+
+    private String Fpassword;
+
+    private String Fupdate_dateTime;
 }

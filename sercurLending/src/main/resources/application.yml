@@ -1,12 +1,14 @@
 server:
-  port: 8132
+  port: 8887
+mybatis:
+  mapper-locations: mapper/*.xml
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.1.154:3306/stockshare?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://144.126.212.235:3306/biubiu?useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: LLL123456
+    password:
   ##目前用来判断是否是24小时之内登陆。
   redis:
     port: 6379

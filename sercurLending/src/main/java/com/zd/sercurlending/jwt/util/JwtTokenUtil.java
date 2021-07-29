@@ -1,7 +1,7 @@
 package com.zd.sercurlending.jwt.util;
 
 
-import com.da.ipo_server.model.UserInfoVo;
+import com.zd.sercurlending.bean.LoginInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;
@@ -77,7 +77,7 @@ public class JwtTokenUtil implements Serializable {
         return false;
     }
 
-    public String generateToken(UserInfoVo loginInfo) {
+    public String generateToken(LoginInfo loginInfo) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("loginInfo",loginInfo);
         return doGenerateToken(claims, loginInfo.getClientNo());
